@@ -189,9 +189,10 @@ body {
 }
 
 .bookshelf {
-	width: 90%;
+	width: 95%;
 	height: 100%;
 	margin: 0 auto;
+	margin-top: 1%;
 	border: 10px #A87328 solid !important;
 	overflow: hidden;
 	background-image: linear-gradient(#241909, #2c1e0b 220px, #b87e2c 220px, #b87e2c 222px,
@@ -273,11 +274,11 @@ body {
 
 .float1{
 	position:fixed;
-	width:60px;
-	height:60px;
-	bottom:40px;
-	right:40px;
-	background-color:darkblue;
+	width:40px;
+	height:40px;
+	bottom:35px;
+	right:10px;
+	background-color:#CD5C5C;
 	color:#FFF;
 	border-radius:50px;
 	text-align:center;
@@ -285,7 +286,8 @@ body {
 }
 
 .my-float{
-	margin-top:22px;
+	margin-top:12px;
+	font-size: 20px;
 }
 
 
