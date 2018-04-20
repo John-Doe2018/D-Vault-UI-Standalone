@@ -1,0 +1,25 @@
+<div ng-controller="HeaderController" ng-cloak>
+	<md-toolbar>
+	<div class="md-toolbar-tools"
+		style="background-image: linear-gradient(to right bottom, #051937, #004d7a, #008793, #00bf72, #a8eb12);">
+		<md-icon aria-label="Home"> <i class="material-icons">home</i>
+		</md-icon>
+		<md-truncate
+			style="position: absolute;left: 79px;right: 170px;top: 18px;bottom: 13px;color: cornsilk;font-size: 24px;">File</md-truncate>
+		<md-truncate
+			style="position: absolute;left: 118px;right: 170px;top: 18px;bottom: 13px;color: red;font-size: 24px;font-style: oblique;">It</md-truncate>
+		<span flex></span>
+		<div>
+			<md-input-container> <label
+				style="color: white;">Search</label> <input ng-model="searchContent">
+			</md-input-container>
+		</div>
+		<md-button class="md-fab md-mini md-primary" aria-label="Search">
+		<i class="material-icons" style="margin-top: 17%;">search</i> </md-button>
+		<md-button class="md-fab md-mini" aria-label="Profile"> <i
+			class="material-icons"
+			style="font-size: 28px !important; margin-top: 17%;">account_circle</i>
+		</md-button>
+	</div>
+</div>
+

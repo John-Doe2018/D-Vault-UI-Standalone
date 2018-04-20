@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="FileItApp">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,  maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta http-equiv="X-Frame-Options" content="deny">
+<style id="antiClickjack">
+body {
+	display: none !important;
+}
+</style>
+<script src="libraries/custom/anticlickjack.js"></script>
+
+
+<title>FileIt</title>
+
+<!-- Favorite icon -->
+<link href="images/fav.ico" rel="icon">
+
+<!-- Library CSS -->
+<link href="themes/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="themes/fonts/font-awesome-4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="themes/fonts/font-awesome-4.4.0/css/awesome-bootstrap-checkbox.css">
+<link
+	href="themes/css/custom/common/material-design-iconic-font.min.css"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!-- Application CSS files required -->
+<link href="themes/fonts/roboto/font.css" rel="stylesheet">
+<link href="themes/css/angular-material/angular-material.min.css"
+	rel="stylesheet">
+<link href="themes/css/angular-material/material-datetimepicker.min.css"
+	rel="stylesheet">
+<link href="themes/css/angular-material/angular-ui-tree.min.css"
+	rel="stylesheet">
+<link href="themes/css/custom/common/fileit-common.css" rel="stylesheet">
+<link href="themes/css/custom/common/util.css" rel="stylesheet">
+<link href="themes/css/custom/common/main.css" rel="stylesheet">
+<link href="themes/css/custom/common/animate.css" rel="stylesheet">
+<link href="themes/css/custom/common/animsition.min.css"
+	rel="stylesheet">
+<link href="themes/css/custom/common/daterangepicker.css"
+	rel="stylesheet">
+<link href="themes/css/custom/common/hamburgers.min.css"
+	rel="stylesheet">
+<link href="themes/css/custom/common/select2.min.css" rel="stylesheet">
+<link href="themes/css/custom/modules/header/header.css"
+	rel="stylesheet">
+<link href="themes/css/custom/modules/header/footer.css"
+	rel="stylesheet">
+<link href="themes/css/custom/modules/header/header-mediaquery.css"
+	rel="stylesheet">
+<script src="libraries/iecompatibility/ie-emulation-modes-warning.js"></script>
+
+</head>
+
+<body ng-controller="MainController" ondragstart="return false;"
+	onselectstart="return false;" ng-cloak>
+
+	<div ng-include="headerPath" ng-if="loginState"></div>
+	<div class="row">
+		<div ng-view class="app-page-container no-padding"
+			style="height: 100% !important"
+			ng-class="{'col-sm-10': loginState, 'col-sm-12': !loginState}"></div>
+	</div>
+
+	<div class="site-wrapper">
+		<div ng-include="fileName" class="full-height"></div>
+	</div>
+	<div ng-include="'resources/common_views/loadingScreen.html'"></div>
+	<div ng-include="'resources/common_views/dialog.html'"></div>
+	<!-- Library files required -->
+	<script src="libraries/angular/angular.min.js"></script>
+	<script src="libraries/angular/angular-route.min.js"></script>
+
+	<script src="libraries/angular/angular-animate.min.js"></script>
+	<script src="libraries/angular/angular-aria.min.js"></script>
+	<script src="libraries/angular/angular-messages.min.js"></script>
+	<script src="libraries/angular/angular-material.min.js"></script>
+	<script src="libraries/angular/angular-ui-tree.min.js"></script>
+
+	<script src="libraries/jquery/jquery.min.js"></script>
+	<script src="libraries/bootstrap/bootstrap.min.js"></script>
+	<script src="libraries/bootstrap/popper.min.js"></script>
+	<script src="libraries/angular/angular-translate.min.js"></script>
+
+	<script src="libraries/angular/angular-touch.min.js"></script>
+	<script src="libraries/custom/moment-withlocale.js"></script>
+	<script src="libraries/angular/angular-material-datetimepicker.min.js"></script>
+	<script src="libraries/angular/ngStorage.min.js"></script>
+	<script src="libraries/angular/spin.min.js"></script>
+	<script src="libraries/cordova/cordova-2.5.0.js"></script>
+	<!-- <script src="libraries/angular/ng-device-detector.min.js"></script> -->
+	<!-- 	<script src="libraries/angular/re-tree.js"></script> -->
+	<script src="libraries/angular/angular-idle.min.js"></script>
+	<!-- <script src="libraries/jquery/jquery-ui.js"></script>
+	<script src="libraries/jquery/jquery.ui.datepicker.js"></script> -->
+
+
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="libraries/iecompatibility/ie10-viewport-bug-workaround.js"></script>
+
+	<!-- Application files required -->
+	<script src="app/main/AppInstance.js"></script>
+	<script src="app/main/MainController.js"></script>
+	<script src="libraries/custom/fileit-services.js"></script>
+	<script src="libraries/custom/ValidationUtil.js"></script>
+	<script src="libraries/custom/animsition.min.js"></script>
+	<script src="libraries/custom/moment.min.js"></script>
+	<script src="libraries/custom/daterangepicker.js"></script>
+	<script src="libraries/custom/countdowntime.js"></script>
+	<script src="libraries/custom/select2.min.js"></script>
+	<script src="libraries/custom/aes.js"></script>
+	<script src="libraries/custom/AesUtil.js"></script>
+	<script src="libraries/custom/pbkdf2.js"></script>
+
+	<!-- Configuration and Properties files required -->
+	<script src="resources/config/fileit-router.js"></script>
+	<script src="resources/config/fileit-config.js"></script>
+	<script src="resources/properties/i18n_en.js"></script>
+	<script src="resources/properties/i18n_fr.js"></script>
+	<script src="resources/properties/fileit-service-url.js"></script>
+
+	<!-- Controllers required -->
+	<script src="app/modules/header/controller/HeaderController.js"></script>
+	<script src="app/modules/user_management/controller/LoginController.js"></script>
+	<script src="app/modules/home/controller/HomeController.js"></script>
+	<script src="app/modules/configurations/controller/EventsCtrl.js"></script>
+	<script src="app/modules/user_management/service/UserOperationsSvc.js"></script>
+	<script src="app/modules/landing/controller/LandingController.js"></script>
+	<script src="app/modules/landing/service/LandingOperationSvc.js"></script>
+	<script type="text/ng-template" id="nodes_renderer.html"><div ui-tree-handle class="tree-node tree-node-content">
+        <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
+        class="glyphicon"
+        ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+        }"></span></a> {{node.title}}
+        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
+        class="glyphicon glyphicon-remove"></span></a>
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span
+        class="glyphicon glyphicon-plus"></span></a>
+      </div>
+      <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+      </ol></script>
+</body>
+</html>
