@@ -11,7 +11,7 @@
 						'LoadingService',
 						function($rootScope, $scope, $location, $window,
 								$translate, $interval, LoadingService) {
-							LoadingService.hideLoad();
+							LoadingService.showLoad();
 							var locale;
 							$translate.use("en_US");
 							/*$(function() {

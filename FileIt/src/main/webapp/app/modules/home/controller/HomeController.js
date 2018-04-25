@@ -12,9 +12,12 @@ fileItApp
 						'HomeSvc',
 						'rfc4122',
 						'$compile',
+						'LoadingService',
+						'$route',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder, BINDER_NAME,
-								HomeSvc, rfc4122, $compile) {
+								HomeSvc, rfc4122, $compile, LoadingService,
+								$route) {
 
 							$scope.initialize = function() {
 
@@ -201,7 +204,7 @@ fileItApp
 										.replace("\\\\\\\\", "/");
 								HomeSvc.createBinder(str1).then(
 										function(result) {
-											console.log(result.data);
+											$route.reload();
 										});
 							};
 

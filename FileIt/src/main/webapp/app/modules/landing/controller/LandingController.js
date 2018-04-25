@@ -46,44 +46,33 @@ fileItApp
 								$scope.$broadcast('angular-ui-tree:expand-all');
 							};
 
+							$scope.nodearray = [];
 							$scope.getData = function() {
 								LandingOperationsSvc.treeList(BINDER_NAME.name)
 										.then(function(result) {
-											var a = xml2json(result.data);
+											var resultObj = result.data;
+											var a = resultObj.map.body.topicref.topic;
+											for(var x=0; x < a.length; x++){
+												var nodeObj = {
+													'id' : 	a[x].id,
+													'title' : a[x].name,
+													'path' : a[x].path
+												}
+												$scope.nodearray.push(nodeObj);
+											}
+											
+											var nodeObjMaster = {
+													'id' : resultObj.map.id,
+													'title' : resultObj.map.body.topicref.navtitle,
+													'nodes' : $scope.nodearray
+											};
+											$scope.data = [];
+											$scope.data.push(nodeObjMaster);
 										});
 							};
 
-							function xml2json(xml) {
-								try {
-									var obj = {};
-									if (xml.children.length > 0) {
-										for (var i = 0; i < xml.children.length; i++) {
-											var item = xml.children.item(i);
-											var nodeName = item.nodeName;
-
-											if (typeof (obj[nodeName]) == "undefined") {
-												obj[nodeName] = xml2json(item);
-											} else {
-												if (typeof (obj[nodeName].push) == "undefined") {
-													var old = obj[nodeName];
-
-													obj[nodeName] = [];
-													obj[nodeName].push(old);
-												}
-												obj[nodeName]
-														.push(xml2json(item));
-											}
-										}
-									} else {
-										obj = xml.textContent;
-									}
-									return obj;
-								} catch (e) {
-									console.log(e.message);
-								}
-							}
 							$scope.getData();
-							$scope.data = [ {
+							/*$scope.data = [ {
 								'id' : 1,
 								'title' : 'Book Name',
 								'nodes' : [ {
@@ -95,7 +84,7 @@ fileItApp
 									'title' : 'node1.2.pdf',
 									'nodes' : []
 								} ]
-							}, ];
+							}, ];*/
 
 							$(function() {
 								var $mybook = $('#mybook');
