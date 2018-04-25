@@ -1,80 +1,306 @@
-fileItApp.controller('LandingController', [
-		'$rootScope',
-		'$scope',
-		'$location',
-		'HeaderSvc',
-		'$sessionStorage',
-		'Idle',
-		'AesEncoder',
-		function($rootScope, $scope, $location, headerSvc, $sessionStorage,
-				Idle, AesEncoder) {
-			$scope.remove = function(scope) {
-				scope.remove();
-			};
+fileItApp
+		.controller(
+				'LandingController',
+				[
+						'$rootScope',
+						'$scope',
+						'$location',
+						'$sessionStorage',
+						'Idle',
+						'AesEncoder',
+						'LandingOperationsSvc',
+						'BINDER_NAME',
+						function($rootScope, $scope, $location,
+								$sessionStorage, Idle, AesEncoder,
+								LandingOperationsSvc, BINDER_NAME) {
+							$scope.remove = function(scope) {
+								scope.remove();
+							};
 
-			$scope.toggle = function(scope) {
-				scope.toggle();
-			};
+							$scope.toggle = function(scope) {
+								scope.toggle();
+							};
 
-			$scope.moveLastToTheBeginning = function() {
-				var a = $scope.data.pop();
-				$scope.data.splice(0, 0, a);
-			};
+							$scope.moveLastToTheBeginning = function() {
+								var a = $scope.data.pop();
+								$scope.data.splice(0, 0, a);
+							};
 
-			$scope.newSubItem = function(scope) {
-				var nodeData = scope.$modelValue;
-				nodeData.nodes.push({
-					id : nodeData.id * 10 + nodeData.nodes.length,
-					title : nodeData.title + '.' + (nodeData.nodes.length + 1),
-					nodes : []
-				});
-			};
+							$scope.newSubItem = function(scope) {
+								var nodeData = scope.$modelValue;
+								nodeData.nodes.push({
+									id : nodeData.id * 10
+											+ nodeData.nodes.length,
+									title : nodeData.title + '.'
+											+ (nodeData.nodes.length + 1),
+									nodes : []
+								});
+							};
 
-			$scope.collapseAll = function() {
-				$scope.$broadcast('angular-ui-tree:collapse-all');
-			};
+							$scope.collapseAll = function() {
+								$scope
+										.$broadcast('angular-ui-tree:collapse-all');
+							};
 
-			$scope.expandAll = function() {
-				$scope.$broadcast('angular-ui-tree:expand-all');
-			};
+							$scope.expandAll = function() {
+								$scope.$broadcast('angular-ui-tree:expand-all');
+							};
 
-			$scope.data = [ {
-				'id' : 1,
-				'title' : 'node1',
-				'nodes' : [ {
-					'id' : 11,
-					'title' : 'node1.1',
-					'nodes' : [ {
-						'id' : 111,
-						'title' : 'node1.1.1',
-						'nodes' : []
-					} ]
-				}, {
-					'id' : 12,
-					'title' : 'node1.2',
-					'nodes' : []
-				} ]
-			}, {
-				'id' : 2,
-				'title' : 'node2',
-				'nodrop' : true, // An arbitrary property to check in custom
-				// template for nodrop-enabled
-				'nodes' : [ {
-					'id' : 21,
-					'title' : 'node2.1',
-					'nodes' : []
-				}, {
-					'id' : 22,
-					'title' : 'node2.2',
-					'nodes' : []
-				} ]
-			}, {
-				'id' : 3,
-				'title' : 'node3',
-				'nodes' : [ {
-					'id' : 31,
-					'title' : 'node3.1',
-					'nodes' : []
-				} ]
-			} ];
-		} ]);
+							$scope.getData = function() {
+								LandingOperationsSvc.treeList(BINDER_NAME.name)
+										.then(function(result) {
+											var a = xml2json(result.data);
+										});
+							};
+
+							function xml2json(xml) {
+								try {
+									var obj = {};
+									if (xml.children.length > 0) {
+										for (var i = 0; i < xml.children.length; i++) {
+											var item = xml.children.item(i);
+											var nodeName = item.nodeName;
+
+											if (typeof (obj[nodeName]) == "undefined") {
+												obj[nodeName] = xml2json(item);
+											} else {
+												if (typeof (obj[nodeName].push) == "undefined") {
+													var old = obj[nodeName];
+
+													obj[nodeName] = [];
+													obj[nodeName].push(old);
+												}
+												obj[nodeName]
+														.push(xml2json(item));
+											}
+										}
+									} else {
+										obj = xml.textContent;
+									}
+									return obj;
+								} catch (e) {
+									console.log(e.message);
+								}
+							}
+							$scope.getData();
+							$scope.data = [ {
+								'id' : 1,
+								'title' : 'Book Name',
+								'nodes' : [ {
+									'id' : 11,
+									'title' : 'node1.1.pdf',
+									'nodes' : []
+								}, {
+									'id' : 12,
+									'title' : 'node1.2.pdf',
+									'nodes' : []
+								} ]
+							}, ];
+
+							$scope.initialize = function() {
+								var $mybook = $('#mybook');
+								var $bttn_next = $('#next_page_button');
+								var $bttn_prev = $('#prev_page_button');
+								var $loading = $('#loading');
+								var $mybook_images = $mybook.find('img');
+								var cnt_images = $mybook_images.length;
+								var loaded = 0;
+								// preload all the images in the book,
+								// and then call the booklet plugin
+
+								$mybook_images.each(function() {
+									var $img = $(this);
+									var source = $img.attr('src');
+									$('<img/>').load(function() {
+										++loaded;
+										if (loaded == cnt_images) {
+											$loading.hide();
+											$bttn_next.show();
+											$bttn_prev.show();
+											$mybook.show().booklet({
+												name : null,
+												// name of the booklet to
+												// display in the
+												// document title bar
+												width : 800,
+												// container width
+												height : 500,
+												// container height
+												speed : 600,
+												// speed of the transition
+												// between pages
+												direction : 'LTR',
+												// direction of the overall
+												// content
+												// organization, default LTR,
+												// left to right, can
+												// be
+												// RTL for languages which read
+												// right to left
+												startingPage : 0,
+												// index of the first page to be
+												// displayed
+												easing : 'easeInOutQuad',
+												// easing method for complete
+												// transition
+												easeIn : 'easeInQuad',
+												// easing method for first half
+												// of transition
+												easeOut : 'easeOutQuad',
+												// easing method for second half
+												// of transition
+
+												closed : true,
+												// start with the book "closed",
+												// will add empty
+												// pages to beginning and end of
+												// book
+												closedFrontTitle : null,
+												// used with "closed", "menu"
+												// and
+												// "pageSelector",
+												// determines title of blank
+												// starting page
+												closedFrontChapter : null,
+												// used with "closed", "menu"
+												// and
+												// "chapterSelector",
+												// determines chapter name of
+												// blank starting
+												// page
+												closedBackTitle : null,
+												// used with "closed", "menu"
+												// and
+												// "pageSelector",
+												// determines chapter name of
+												// blank ending page
+												closedBackChapter : null,
+												// used with "closed", "menu"
+												// and
+												// "chapterSelector",
+												// determines chapter name of
+												// blank ending page
+												covers : false,
+												// used with "closed", makes
+												// first and last
+												// pages
+												// into covers, without page
+												// numbers (if
+												// enabled)
+
+												pagePadding : 10,
+												// padding for each page wrapper
+												pageNumbers : true,
+												// display page numbers on each
+												// page
+
+												hovers : false,
+												// enables preview pageturn
+												// hover animation,
+												// shows a small preview of
+												// previous or next
+												// page on hover
+												overlays : false,
+												// enables navigation using a
+												// page sized
+												// overlay,
+												// when enabled links inside the
+												// content will
+												// not be clickable
+												tabs : false,
+												// adds tabs along the top of
+												// the pages
+												tabWidth : 60,
+												// set the width of the tabs
+												tabHeight : 20,
+												// set the height of the tabs
+												arrows : false,
+												// adds arrows overlayed over
+												// the book edges
+												cursor : 'pointer',
+												// cursor css setting for side
+												// bar areas
+
+												hash : false,
+												// enables navigation using a
+												// hash string,
+												// ex: #/page/1 for page 1, will
+												// affect
+												// all booklets with 'hash'
+												// enabled
+												keyboard : true,
+												// enables navigation with arrow
+												// keys
+												// (left: previous, right: next)
+												next : $bttn_next,
+												// selector for element to use
+												// as click
+												// trigger for next page
+												prev : $bttn_prev,
+												// selector for element to use
+												// as click
+												// trigger for previous page
+
+												menu : null,
+												// selector for element to use
+												// as the menu area,
+												// required for 'pageSelector'
+												pageSelector : false,
+												// enables navigation with a
+												// dropdown menu of
+												// pages,
+												// requires 'menu'
+												chapterSelector : false,
+												// enables navigation with a
+												// dropdown menu of
+												// chapters,
+												// determined by the "rel"
+												// attribute, requires
+												// 'menu'
+
+												shadows : true,
+												// display shadows on page
+												// animations
+												shadowTopFwdWidth : 166,
+												// shadow width for top forward
+												// anim
+												shadowTopBackWidth : 166,
+												// shadow width for top back
+												// anim
+												shadowBtmWidth : 50,
+												// shadow width for bottom
+												// shadow
+
+												before : function() {
+												},
+												// callback invoked before each
+												// page turn
+												// animation
+												after : function() {
+												}
+											// callback invoked after each page
+											// turn animation
+											});
+											Cufon.refresh(); // if you want
+											// to use cufon
+										}
+									}).attr('src', source);
+								});
+							};
+							$scope.readpdf = function() {/*
+															 * var img =
+															 * document.getElementById("pic");
+															 * Tesseract.recognize("../../../images/bg.png", {
+															 * lang: 'ind',
+															 * tessedit_char_blacklist:
+															 * 'e' })
+															 * .progress(function(message){
+															 * console.log(message) })
+															 * .then(function(result) {
+															 * console.log(result)
+															 * });
+															 */
+							}
+							$scope.initialize();
+							$scope.readpdf();
+						} ]);

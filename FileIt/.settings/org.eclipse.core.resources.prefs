@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//src/main/java=ISO-8859-1
 encoding//src/main/resources=ISO-8859-1
 encoding//src/main/webapp/app/modules/landing/views/landingpage.html=UTF-8
+encoding//src/test/java=ISO-8859-1
 encoding/<project>=ISO-8859-1

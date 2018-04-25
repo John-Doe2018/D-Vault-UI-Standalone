@@ -1,4 +1,10 @@
 fileItApp.factory('LandingOperationsSvc', [ 'RestSvc', 'EncoderSvc',
-		'$sessionStorage', function(RestSvc, EncoderSvc, $sessionStorage) {
+		'$sessionStorage', 'BINDER_SVC',
+		function(RestSvc, EncoderSvc, $sessionStorage, BINDER_SVC) {
+			return {
+				treeList : function(reqObj) {
 
+					return RestSvc.postData(BINDER_SVC.listview, reqObj);
+				}
+			};
 		} ]);

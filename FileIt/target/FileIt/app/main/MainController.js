@@ -46,7 +46,7 @@
 							$scope.$on('$routeChangeSuccess', function(next,
 									current) {
 								// $translate.use(OMNI_PROP.locale);
-							//	$scope.fitScreen();
+								$scope.fitScreen();
 							});
 
 							$scope.$on('ErrorData', function(event, args) {
@@ -70,7 +70,7 @@
 							 */
 							var windowObj = angular.element($window);
 							windowObj.bind('resize', function() {
-								//$scope.fitScreen();
+								$scope.fitScreen();
 							});
 
 							/**
@@ -78,15 +78,21 @@
 							 * initiate fitScreen() method call after 100ms
 							 * delay Reason: ng-view takes time to load the page
 							 */
-							/*$scope.fitScreen = function() {
+							$scope.fitScreen = function() {
 								var fitScreenDelay = $interval(function() {
 									$interval.cancel(fitScreenDelay);
 									var windowHeight = $(window).height();
 									var headerHeight = $('.header').height();
-									var footerHeight = $('.loginFooter')
-											.height();
+									/*
+									 * var footerHeight = $('.loginFooter')
+									 * .height();
+									 */
+									/*
+									 * var appPageContainer = windowHeight -
+									 * headerHeight - footerHeight;
+									 */
 									var appPageContainer = windowHeight
-											- headerHeight - footerHeight;
+											- headerHeight;
 									$('.app-page-container').height(
 											appPageContainer + 'px');
 								}, 50);
@@ -97,7 +103,7 @@
 							$scope.fitScreen();
 							$scope.$on('FitScreen', function() {
 								$scope.fitScreen();
-							});*/
+							});
 
 							/**
 							 * Successful login callback

@@ -14,12 +14,12 @@
 							LoadingService.hideLoad();
 							var locale;
 							$translate.use("en_US");
-							$(function() {
+							/*$(function() {
 								$(document).on('click', 'input[type=text]',
 										'input[type=number]', function() {
 											this.select();
 										});
-							});
+							});*/
 							$location.path('/login');
 							$scope.loginState = false;
 							$scope.headerPath = "app/modules/header/views/header.html";

@@ -5,11 +5,10 @@ fileItApp
 						'$rootScope',
 						'$scope',
 						'$location',
-						'HeaderSvc',
 						'$sessionStorage',
 						'Idle',
 						'AesEncoder',
-						function($rootScope, $scope, $location, headerSvc,
+						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder) {
 
 							(function($) {

@@ -9,6 +9,27 @@ fileItApp.service('LoadingService', function($rootScope) {
 	};
 });
 
+fileItApp.factory("rfc4122", function() {
+	return {
+		newuuid : function() {
+			// http://www.ietf.org/rfc/rfc4122.txt
+			var s = [];
+			var hexDigits = "0123456789abcdef";
+			for (var i = 0; i < 36; i++) {
+				s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+			}
+			s[14] = "4"; // bits 12-15 of the time_hi_and_version field to
+							// 0010
+			s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of
+																// the
+																// clock_seq_hi_and_reserved
+																// to 01
+			s[8] = s[13] = s[18] = s[23] = "-";
+			return s.join("");
+		}
+	}
+});
+
 // Service for REST API Call
 fileItApp.factory('RestSvc', [
 		'$http',
@@ -72,66 +93,20 @@ fileItApp
 							config.headers = config.headers || {};
 
 							if (config.url.includes == undefined) {
-
-								if (/authenticate/.test(config.url)) {
-									config.headers = {
-										'Content-type' : 'application/x-www-form-urlencoded',
-										'Authorization' : $sessionStorage.authData
-									};
-
-									delete $sessionStorage.authData;
-
-								} else if ($sessionStorage.token) {
-
-									config.headers = {
-										'Accept' : 'application/json',
-										'Content-type' : 'application/json'
-									};
-
-									if (/getPdf/.test(config.url)) {
-										config.headers = {
-											'Accept' : 'application/pdf',
-										};
-										config.responseType = 'arraybuffer';
-									}
-
-									config.headers.Authorization = 'Bearer '
-											+ $sessionStorage.token;
-								} else {
-									config.headers = {
-										'Accept' : 'application/json',
-										'Content-type' : 'application/json'
-									};
-								}
-
+								config.headers = {
+									'Accept' : 'application/json',
+									'Content-type' : 'application/json'
+								};
+							} else if (config.url.includes == 'getMasterJson') {
+								config.headers = {
+									'Accept' : 'text/plain',
+									'Content-type' : 'application/json'
+								};
 							} else {
-								if (config.url.includes('authenticate')) {
-									config.headers = {
-										'Content-type' : 'application/x-www-form-urlencoded',
-										'Authorization' : $sessionStorage.authData
-									};
-
-									delete $sessionStorage.authData;
-
-								} else if ($sessionStorage.token) {
-									config.headers = {
-										'Accept' : 'application/json',
-										'Content-type' : 'application/json'
-									};
-
-									if (config.url.includes('getPdf')) {
-										config.headers.Accept = 'application/pdf';
-										config.responseType = 'arraybuffer';
-									}
-
-									config.headers.Authorization = 'Bearer '
-											+ $sessionStorage.token;
-								} else {
-									config.headers = {
-										'Accept' : 'application/json',
-										'Content-type' : 'application/json'
-									};
-								}
+								config.headers = {
+									'Accept' : 'application/json',
+									'Content-type' : 'application/json'
+								};
 							}
 
 							console.log(config);
@@ -286,21 +261,6 @@ fileItApp.factory('FORMATTED_DATE', function() {
 	};
 });
 
-fileItApp.service('HeaderSvc', [ 'RestSvc', 'CURR_DATE_TIME',
-		function(RestSvc, CURR_DATE_TIME) {
-
-		} ]);
-
 fileItApp.value('BINDER_NAME', {
 	name : ''
-});
-
-// IDLE_TIME Placeholder
-fileItApp.value('IDLE_TIME', {
-	value : ''
-});
-
-// TIME_OUT Placeholder
-fileItApp.value('TIME_OUT', {
-	value : ''
 });

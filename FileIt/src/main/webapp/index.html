@@ -91,8 +91,9 @@ body {
 	<script src="libraries/angular/angular-ui-tree.min.js"></script>
 
 	<script src="libraries/jquery/jquery.min.js"></script>
+	<script src="libraries/jquery/jquery-ui.min.js"></script>
 	<script src="libraries/jquery/jquery.easing.1.3.js"></script>
-	<script src="libraries/jquery/jquery.booklet.1.1.0.min.jss"></script>
+	<script src="libraries/jquery/jquery.booklet.1.1.0.min.js"></script>
 	<script src="libraries/bootstrap/bootstrap.min.js"></script>
 	<script src="libraries/bootstrap/popper.min.js"></script>
 	<script src="libraries/angular/angular-translate.min.js"></script>
@@ -102,6 +103,8 @@ body {
 
 	<script src="libraries/angular/angular-touch.min.js"></script>
 	<script src="libraries/custom/moment-withlocale.js"></script>
+	<script src="libraries/pdf/pdf.js"></script>
+	<script src="libraries/pdf/tesseract.js"></script>
 	<script src="libraries/angular/angular-material-datetimepicker.min.js"></script>
 	<script src="libraries/angular/ngStorage.min.js"></script>
 	<script src="libraries/angular/spin.min.js"></script>
@@ -136,29 +139,42 @@ body {
 	<script src="resources/properties/i18n_en.js"></script>
 	<script src="resources/properties/i18n_fr.js"></script>
 	<script src="resources/properties/fileit-service-url.js"></script>
+	
 
 	<!-- Controllers required -->
 	<script src="app/modules/header/controller/HeaderController.js"></script>
 	<script src="app/modules/user_management/controller/LoginController.js"></script>
 	<script src="app/modules/home/controller/HomeController.js"></script>
+	<script src="app/modules/home/service/HomeSvc.js"></script>
 	<script src="app/modules/configurations/controller/EventsCtrl.js"></script>
 	<script src="app/modules/user_management/service/UserOperationsSvc.js"></script>
 	<script src="app/modules/landing/controller/LandingController.js"></script>
 	<script src="app/modules/landing/service/LandingOperationSvc.js"></script>
-	<script type="text/ng-template" id="nodes_renderer.html"><div ui-tree-handle class="tree-node tree-node-content">
-        <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
+	<script type="text/ng-template" id="nodes_renderer1.html"><div ui-tree-handle class="tree-node tree-node-content" style= "height: 35px;">
+        <a class="btn btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
         class="glyphicon"
         ng-class="{
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
         }"></span></a> {{node.title}}
-        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
+        <a class="pull-right btn  btn-xs" data-nodrag ng-click="remove(this)"><span
         class="glyphicon glyphicon-remove"></span></a>
-        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span
-        class="glyphicon glyphicon-plus"></span></a>
       </div>
       <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
         <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+      </ol></script>
+	<script type="text/ng-template" id="nodes_renderer.html"><div ui-tree-handle class="tree-node tree-node-content" style= "height: 35px;">
+        <a class="btn btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
+        class="glyphicon"
+        ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+        }"></span></a> {{node.title}}
+       
+      </div>
+      <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer1.html'">
         </li>
       </ol></script>
 	<script type="text/javascript">

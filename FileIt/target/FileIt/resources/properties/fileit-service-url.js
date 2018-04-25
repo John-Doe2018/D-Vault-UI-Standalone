@@ -1,3 +1,6 @@
 fileItApp.constant('BINDER_SVC', {
 	login : '/login',
+	createBinder : '/binder/create',
+	shelf: '/helloworld/getMasterJson',
+	listview: '/binder/getBookTreeDetail'
 });
