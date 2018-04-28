@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div ng-controller="LandingController" class="header" ng-cloak>
+	<div class="header" ng-cloak>
 		<!-- <div class="row">
 			<div class="col-sm-12">
 				<md-button class="md-raised md-primary" ng-click="expandAll()">Expand
@@ -21,7 +21,7 @@
 				<div ui-tree id="tree-root">
 					<ol ui-tree-nodes ng-model="data">
 						<li ng-repeat="node in data" ui-tree-node
-							ng-include="'nodes_renderer.html'"></li>
+							ng-include="'app/modules/landing/views/noderenderer.html'"></li>
 					</ol>
 				</div>
 			</div>
@@ -107,7 +107,7 @@
 							<div>
 								<img src="images/6.jpg" alt="" />
 								<h1>Custom Animation Banner</h1>
-								<p>In today’s tutorial we will be creating a custom
+								<p>In todayâs tutorial we will be creating a custom
 									animation banner with jQuery. The idea is to have different
 									elements in a banner that will animate step-wise in a custom
 									way.</p>
@@ -169,8 +169,8 @@
 							<div>
 								<img src="images/10.jpg" alt="" />
 								<h1>Compact News Previewer</h1>
-								<p>Today we will create a news previewer that let’s you show
-									your latest articles or news in a compact way. The news
+								<p>Today we will create a news previewer that letâs you
+									show your latest articles or news in a compact way. The news
 									previewer will show some list of articles on the left side and
 									the preview of the article with a longer description on the
 									right. Once a news on the left is clicked, the preview will
@@ -245,10 +245,27 @@
 				</div>
 			</div>
 		</div>
-		<div id="pdf-text">
-			<div id="loading-info">Extracting text ... hold tight !</div>
-		</div>
+		<br />
+	</div>
+	<div id="pdfModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
 
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">PDF</h4>
+				</div>
+				<div class="modal-body">
+					<embed src="Test.pdf" type="application/pdf" height="400px"
+						width="100%">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
 	</div>
 </body>
 </html>

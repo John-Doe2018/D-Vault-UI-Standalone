@@ -20,6 +20,9 @@
 											this.select();
 										});
 							});*/
+							$scope.onnodeclick = function(node) {
+								$rootScope.$broadcast('onNodeClick', node);
+							}
 							$location.path('/login');
 							$scope.loginState = false;
 							$scope.headerPath = "app/modules/header/views/header.html";

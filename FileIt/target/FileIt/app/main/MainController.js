@@ -11,15 +11,18 @@
 						'LoadingService',
 						function($rootScope, $scope, $location, $window,
 								$translate, $interval, LoadingService) {
-							LoadingService.hideLoad();
+							LoadingService.showLoad();
 							var locale;
 							$translate.use("en_US");
-							$(function() {
+							/*$(function() {
 								$(document).on('click', 'input[type=text]',
 										'input[type=number]', function() {
 											this.select();
 										});
-							});
+							});*/
+							$scope.onnodeclick = function(node) {
+								$rootScope.$broadcast('onNodeClick', node);
+							}
 							$location.path('/login');
 							$scope.loginState = false;
 							$scope.headerPath = "app/modules/header/views/header.html";
