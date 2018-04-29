@@ -1,6 +1,7 @@
 fileItApp.constant('BINDER_SVC', {
 	login : '/login',
 	createBinder : '/binder/create',
-	shelf: '/helloworld/getMasterJson',
-	listview: '/binder/getBookTreeDetail'
+	shelf : '/helloworld/getMasterJson',
+	listview : '/binder/getBookTreeDetail',
+	deleteBook : '/binder/delete'
 });

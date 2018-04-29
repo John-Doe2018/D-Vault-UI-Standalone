@@ -13,7 +13,7 @@
 				<h4 class="modal-title" id="myModalLabel">
 					<p style="color: red">{{errorMessage}}</p>
 					<h3>
-						<md-icon md-svg-src="images/tag.svg" aria-label="Add Binder"
+						<md-icon md-svg-src="images/tag.svg" aria-label="Add Book"
 							style="margin-right: 5px;width: 30px;height: 30px;"></md-icon>
 						Add Binder
 					</h3>
@@ -39,7 +39,7 @@
 								<div ng-switch-when="Binder Name">
 									<div class="parentDirective">
 										<div layout-gt-sm="row" layout-align="space-around center">
-											<md-input-container flex="60"> <label>Binder
+											<md-input-container flex="60"> <label>Book
 												Name</label> <input name="binderName" ng-model="$parent.binderName"
 												required>
 											<div ng-messages="createVersionForm.binderName.$error"

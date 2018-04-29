@@ -5,6 +5,11 @@ fileItApp.factory('LandingOperationsSvc', [ 'RestSvc', 'EncoderSvc',
 				treeList : function(reqObj) {
 
 					return RestSvc.postData(BINDER_SVC.listview, reqObj);
+				},
+
+				deleteBook : function(reqObj) {
+
+					return RestSvc.postData(BINDER_SVC.deleteBook, reqObj);
 				}
 			};
 		} ]);

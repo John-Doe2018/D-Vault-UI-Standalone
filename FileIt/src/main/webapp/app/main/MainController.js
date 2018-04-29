@@ -14,14 +14,13 @@
 							LoadingService.showLoad();
 							var locale;
 							$translate.use("en_US");
-							/*$(function() {
-								$(document).on('click', 'input[type=text]',
-										'input[type=number]', function() {
-											this.select();
-										});
-							});*/
 							$scope.onnodeclick = function(node) {
 								$rootScope.$broadcast('onNodeClick', node);
+							}
+
+							$scope.removeBook = function(bookname) {
+								$rootScope.$broadcast('onRemoveBookClick',
+										bookname);
 							}
 							$location.path('/login');
 							$scope.loginState = false;
