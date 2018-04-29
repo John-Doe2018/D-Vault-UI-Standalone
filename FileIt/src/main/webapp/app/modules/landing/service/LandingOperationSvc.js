@@ -10,6 +10,10 @@ fileItApp.factory('LandingOperationsSvc', [ 'RestSvc', 'EncoderSvc',
 				deleteBook : function(reqObj) {
 
 					return RestSvc.postData(BINDER_SVC.deleteBook, reqObj);
+				},
+				searchBook : function(reqObj) {
+
+					return RestSvc.postData(BINDER_SVC.search, reqObj);
 				}
 			};
 		} ]);

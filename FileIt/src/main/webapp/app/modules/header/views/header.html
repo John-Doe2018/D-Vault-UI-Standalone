@@ -2,7 +2,8 @@
 	<md-toolbar>
 	<div class="md-toolbar-tools"
 		style="background-image: linear-gradient(to bottom right, #54290C, #E9967A);">
-		<md-icon md-svg-src="images/home.svg" aria-label="Home" ng-click="backtoHome()"></md-icon>
+		<md-icon md-svg-src="images/home.svg" aria-label="Home"
+			ng-click="backtoHome()"></md-icon>
 		<md-truncate
 			style="position: absolute;left: 79px;right: 170px;top: 18px;bottom: 13px;color: cornsilk;font-size: 24px;">File</md-truncate>
 		<md-truncate
@@ -14,8 +15,9 @@
 				ng-model="searchContent"> </md-input-container>
 		</div>
 		<md-button class="md-fab md-mini" aria-label="Search"
-			style="background-color: #54290C;"> <md-icon
-			md-svg-src="images/search.svg" aria-label="Search"></md-icon> </md-button>
+			style="background-color: #54290C;" ng-click="onSearch()">
+		<md-icon md-svg-src="images/search.svg" aria-label="Search"></md-icon>
+		</md-button>
 		<md-button class="md-fab md-mini" aria-label="Profile"
 			style="background-color: #54290C;"> <md-icon
 			md-svg-src="images/user.svg" aria-label="User"></md-icon> </md-button>

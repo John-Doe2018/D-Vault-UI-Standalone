@@ -22,22 +22,13 @@ fileItApp
 								$('#pdfModal').modal('show');
 							});
 
-							$scope
-									.$on(
-											'onRemoveBookClick',
-											function(event, bookname) {
-												LandingOperationsSvc
-														.deleteBook(bookname)
-														.then(
-																function(result) {
-																	console
-																			.log(result.data);
-																	if (result.data === 'Deleted Successfully') {
-																		$location
-																				.path('/home');
-																	}
-																});
-											});
+							$scope.$on('onRemoveBookClick', function(event,
+									bookname) {
+								LandingOperationsSvc.deleteBook(bookname).then(
+										function(result) {
+											$location.path('/home');
+										});
+							});
 
 							$scope.toggle = function(scope) {
 								scope.toggle();

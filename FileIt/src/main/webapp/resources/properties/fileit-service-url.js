@@ -3,5 +3,6 @@ fileItApp.constant('BINDER_SVC', {
 	createBinder : '/binder/create',
 	shelf : '/helloworld/getMasterJson',
 	listview : '/binder/getBookTreeDetail',
-	deleteBook : '/binder/delete'
+	deleteBook : '/binder/delete',
+	search : '/binder/searchBook'
 });
