@@ -61,6 +61,8 @@ fileItApp
 
 							$scope.nodearray = [];
 							$scope.getData = function() {
+								var text1 = '<div><img src="http://localhost:8080/static/Adi/Images/4.jpg" alt=""style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" /></div>';
+								$(text1).appendTo(".b-load");
 								$scope.pdf = {
 									src : 'Test.pdf',
 								};
@@ -102,12 +104,6 @@ fileItApp
 							};
 
 							$scope.getData();
-							/*
-							 * $scope.data = [ { 'id' : 1, 'title' : 'Book
-							 * Name', 'nodes' : [ { 'id' : 11, 'title' :
-							 * 'node1.1.pdf', 'nodes' : [] }, { 'id' : 12,
-							 * 'title' : 'node1.2.pdf', 'nodes' : [] } ] }, ];
-							 */
 
 							$(function() {
 								var $mybook = $('#mybook');
@@ -131,276 +127,276 @@ fileItApp
 											$bttn_prev.show();
 											$mybook.show().booklet({
 												name : null, // name of the
-												// booklet to
-												// display in
-												// the document
-												// title bar
+																// booklet to
+																// display in
+																// the document
+																// title bar
 												width : 800, // container
-												// width
+																// width
 												height : 500, // container
-												// height
+																// height
 												speed : 600, // speed of the
-												// transition
-												// between pages
+																// transition
+																// between pages
 												direction : 'LTR', // direction
-												// of the
-												// overall
-												// content
-												// organization,
-												// default
-												// LTR, left
-												// to right,
-												// can be
-												// RTL for
-												// languages
-												// which
-												// read
-												// right to
-												// left
+																	// of the
+																	// overall
+																	// content
+																	// organization,
+																	// default
+																	// LTR, left
+																	// to right,
+																	// can be
+																	// RTL for
+																	// languages
+																	// which
+																	// read
+																	// right to
+																	// left
 												startingPage : 0, // index of
-												// the first
-												// page to
-												// be
-												// displayed
+																	// the first
+																	// page to
+																	// be
+																	// displayed
 												easing : 'easeInOutQuad', // easing
-												// method
-												// for
-												// complete
-												// transition
+																			// method
+																			// for
+																			// complete
+																			// transition
 												easeIn : 'easeInQuad', // easing
-												// method
-												// for
-												// first
-												// half
-												// of
-												// transition
+																		// method
+																		// for
+																		// first
+																		// half
+																		// of
+																		// transition
 												easeOut : 'easeOutQuad', // easing
-												// method
-												// for
-												// second
-												// half
-												// of
-												// transition
+																			// method
+																			// for
+																			// second
+																			// half
+																			// of
+																			// transition
 
 												closed : true, // start with
-												// the book
-												// "closed",
-												// will add
-												// empty pages
-												// to beginning
-												// and end of
-												// book
+																// the book
+																// "closed",
+																// will add
+																// empty pages
+																// to beginning
+																// and end of
+																// book
 												closedFrontTitle : null, // used
-												// with
-												// "closed",
-												// "menu"
-												// and
-												// "pageSelector",
-												// determines
-												// title
-												// of
-												// blank
-												// starting
-												// page
+																			// with
+																			// "closed",
+																			// "menu"
+																			// and
+																			// "pageSelector",
+																			// determines
+																			// title
+																			// of
+																			// blank
+																			// starting
+																			// page
 												closedFrontChapter : null, // used
-												// with
-												// "closed",
-												// "menu"
-												// and
-												// "chapterSelector",
-												// determines
-												// chapter
-												// name
-												// of
-												// blank
-												// starting
-												// page
+																			// with
+																			// "closed",
+																			// "menu"
+																			// and
+																			// "chapterSelector",
+																			// determines
+																			// chapter
+																			// name
+																			// of
+																			// blank
+																			// starting
+																			// page
 												closedBackTitle : null, // used
-												// with
-												// "closed",
-												// "menu"
-												// and
-												// "pageSelector",
-												// determines
-												// chapter
-												// name
-												// of
-												// blank
-												// ending
-												// page
+																		// with
+																		// "closed",
+																		// "menu"
+																		// and
+																		// "pageSelector",
+																		// determines
+																		// chapter
+																		// name
+																		// of
+																		// blank
+																		// ending
+																		// page
 												closedBackChapter : null, // used
-												// with
-												// "closed",
-												// "menu"
-												// and
-												// "chapterSelector",
-												// determines
-												// chapter
-												// name
-												// of
-												// blank
-												// ending
-												// page
+																			// with
+																			// "closed",
+																			// "menu"
+																			// and
+																			// "chapterSelector",
+																			// determines
+																			// chapter
+																			// name
+																			// of
+																			// blank
+																			// ending
+																			// page
 												covers : false, // used with
-												// "closed",
-												// makes first
-												// and last
-												// pages into
-												// covers,
-												// without page
-												// numbers (if
-												// enabled)
+																// "closed",
+																// makes first
+																// and last
+																// pages into
+																// covers,
+																// without page
+																// numbers (if
+																// enabled)
 
 												pagePadding : 10, // padding
-												// for each
-												// page
-												// wrapper
+																	// for each
+																	// page
+																	// wrapper
 												pageNumbers : true, // display
-												// page
-												// numbers
-												// on each
-												// page
+																	// page
+																	// numbers
+																	// on each
+																	// page
 
 												hovers : false, // enables
-												// preview
-												// pageturn
-												// hover
-												// animation,
-												// shows a small
-												// preview of
-												// previous or
-												// next page on
-												// hover
+																// preview
+																// pageturn
+																// hover
+																// animation,
+																// shows a small
+																// preview of
+																// previous or
+																// next page on
+																// hover
 												overlays : false, // enables
-												// navigation
-												// using a
-												// page
-												// sized
-												// overlay,
-												// when
-												// enabled
-												// links
-												// inside
-												// the
-												// content
-												// will not
-												// be
-												// clickable
+																	// navigation
+																	// using a
+																	// page
+																	// sized
+																	// overlay,
+																	// when
+																	// enabled
+																	// links
+																	// inside
+																	// the
+																	// content
+																	// will not
+																	// be
+																	// clickable
 												tabs : false, // adds tabs
-												// along the top
-												// of the pages
+																// along the top
+																// of the pages
 												tabWidth : 60, // set the width
-												// of the tabs
+																// of the tabs
 												tabHeight : 20, // set the
-												// height of the
-												// tabs
+																// height of the
+																// tabs
 												arrows : false, // adds arrows
-												// overlayed
-												// over the book
-												// edges
+																// overlayed
+																// over the book
+																// edges
 												cursor : 'pointer', // cursor
-												// css
-												// setting
-												// for side
-												// bar areas
+																	// css
+																	// setting
+																	// for side
+																	// bar areas
 
 												hash : false, // enables
-												// navigation
-												// using a hash
-												// string, ex:
-												// #/page/1 for
-												// page 1, will
-												// affect all
-												// booklets with
-												// 'hash'
-												// enabled
+																// navigation
+																// using a hash
+																// string, ex:
+																// #/page/1 for
+																// page 1, will
+																// affect all
+																// booklets with
+																// 'hash'
+																// enabled
 												keyboard : true, // enables
-												// navigation
-												// with
-												// arrow
-												// keys
-												// (left:
-												// previous,
-												// right:
-												// next)
+																	// navigation
+																	// with
+																	// arrow
+																	// keys
+																	// (left:
+																	// previous,
+																	// right:
+																	// next)
 												next : $bttn_next, // selector
-												// for
-												// element
-												// to use as
-												// click
-												// trigger
-												// for next
-												// page
+																	// for
+																	// element
+																	// to use as
+																	// click
+																	// trigger
+																	// for next
+																	// page
 												prev : $bttn_prev, // selector
-												// for
-												// element
-												// to use as
-												// click
-												// trigger
-												// for
-												// previous
-												// page
+																	// for
+																	// element
+																	// to use as
+																	// click
+																	// trigger
+																	// for
+																	// previous
+																	// page
 
 												menu : null, // selector for
-												// element to
-												// use as the
-												// menu area,
-												// required for
-												// 'pageSelector'
+																// element to
+																// use as the
+																// menu area,
+																// required for
+																// 'pageSelector'
 												pageSelector : false, // enables
-												// navigation
-												// with
-												// a
-												// dropdown
-												// menu
-												// of
-												// pages,
-												// requires
-												// 'menu'
+																		// navigation
+																		// with
+																		// a
+																		// dropdown
+																		// menu
+																		// of
+																		// pages,
+																		// requires
+																		// 'menu'
 												chapterSelector : false, // enables
-												// navigation
-												// with
-												// a
-												// dropdown
-												// menu
-												// of
-												// chapters,
-												// determined
-												// by
-												// the
-												// "rel"
-												// attribute,
-												// requires
-												// 'menu'
+																			// navigation
+																			// with
+																			// a
+																			// dropdown
+																			// menu
+																			// of
+																			// chapters,
+																			// determined
+																			// by
+																			// the
+																			// "rel"
+																			// attribute,
+																			// requires
+																			// 'menu'
 
 												shadows : true, // display
-												// shadows on
-												// page
-												// animations
+																// shadows on
+																// page
+																// animations
 												shadowTopFwdWidth : 166, // shadow
-												// width
-												// for
-												// top
-												// forward
-												// anim
+																			// width
+																			// for
+																			// top
+																			// forward
+																			// anim
 												shadowTopBackWidth : 166, // shadow
-												// width
-												// for
-												// top
-												// back
-												// anim
+																			// width
+																			// for
+																			// top
+																			// back
+																			// anim
 												shadowBtmWidth : 50, // shadow
-												// width
-												// for
-												// bottom
-												// shadow
+																		// width
+																		// for
+																		// bottom
+																		// shadow
 
 												before : function() {
 												}, // callback invoked before
-												// each page turn animation
+													// each page turn animation
 												after : function() {
 												} // callback invoked after
-											// each page turn animation
+													// each page turn animation
 											});
 											Cufon.refresh();
 										}
@@ -408,25 +404,5 @@ fileItApp
 								});
 
 							});
-							$scope.viewerProps = {
-								serviceUrl : 'http://demos.componentone.com/ASPNET/c1webapi/4.0.20172.105/api/pdf',
-								filePath : 'Test.pdf',
-								fullScreen : false,
-								mouseMode : 'SelectTool',
-								zoomFactor : 1,
-								continuousViewMode : false
-							};
 
-							$scope.pdfViewer = null;
-
-							$scope
-									.$watch(
-											'viewerProps.continuousViewMode',
-											function() {
-												var continuousViewMode = $scope.viewerProps.continuousViewMode;
-												if ($scope.pdfViewer) {
-													$scope.pdfViewer.viewMode = continuousViewMode ? wijmo.viewer.ViewMode.Continuous
-															: wijmo.viewer.ViewMode.Single;
-												}
-											});
 						} ]);
