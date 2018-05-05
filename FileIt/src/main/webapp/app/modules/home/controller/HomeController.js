@@ -25,50 +25,59 @@ fileItApp
 										.shelfBook()
 										.then(
 												function(result) {
-													var ob = result.data;
-													for (var i = 0; i < ob.BookList.length; i++) {
-														$scope.h2name = Object
-																.keys(ob.BookList[i])[0];
-														var text1;
-														if (i % 5 == 0) {
-															text1 = "<div class='book-tilted'><div class='book' id='"
-																	+ $scope.h2name
-																	+ "'><h2>"
-																	+ $scope.h2name
-																	+ "</h2></div></div>";
-														} else {
-															text1 = "<div class='book' id='"
-																	+ $scope.h2name
-																	+ "'><h2>"
-																	+ $scope.h2name
-																	+ "</h2></div>";
-														}
-														var id = '#'
-																+ $scope.h2name;
-														$(text1).appendTo(
-																".bookshelf");
-														var array = [
-																"book-green",
-																"book-blue",
-																"book-umber",
-																"book-springer" ];
-														var colorNumber = Math
-																.round((Math
-																		.random() * (array.length - 1)));
-														$(id)
-																.addClass(
-																		array[colorNumber]);
 
-														$(id)
-																.replaceWith(
-																		$(id));
-														$(id)
-																.attr(
-																		'ng-click',
-																		"onBinderClick('"
-																				+ $scope.h2name
-																				+ "')");
-														$compile($(id))($scope);
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														var ob = result.data;
+														for (var i = 0; i < ob.BookList.length; i++) {
+															$scope.h2name = Object
+																	.keys(ob.BookList[i])[0];
+															var text1;
+															if (i % 5 == 0) {
+																text1 = "<div class='book-tilted'><div class='book' id='"
+																		+ $scope.h2name
+																		+ "'><h2>"
+																		+ $scope.h2name
+																		+ "</h2></div></div>";
+															} else {
+																text1 = "<div class='book' id='"
+																		+ $scope.h2name
+																		+ "'><h2>"
+																		+ $scope.h2name
+																		+ "</h2></div>";
+															}
+															var id = '#'
+																	+ $scope.h2name;
+															$(text1)
+																	.appendTo(
+																			".bookshelf");
+															var array = [
+																	"book-green",
+																	"book-blue",
+																	"book-umber",
+																	"book-springer" ];
+															var colorNumber = Math
+																	.round((Math
+																			.random() * (array.length - 1)));
+															$(id)
+																	.addClass(
+																			array[colorNumber]);
+
+															$(id).replaceWith(
+																	$(id));
+															$(id)
+																	.attr(
+																			'ng-click',
+																			"onBinderClick('"
+																					+ $scope.h2name
+																					+ "')");
+															$compile($(id))(
+																	$scope);
+														}
 													}
 												});
 
@@ -202,10 +211,19 @@ fileItApp
 								var str1 = angular.toJson(reqObj1);
 								var res = str1.replace("\\\\\\\\", "/")
 										.replace("\\\\\\\\", "/");
-								HomeSvc.createBinder(str1).then(
-										function(result) {
-											$route.reload();
-										});
+								HomeSvc
+										.createBinder(str1)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														$route.reload();
+													}
+												});
 							};
 
 							$scope.changehost = function(hostname) {

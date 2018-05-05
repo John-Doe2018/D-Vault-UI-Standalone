@@ -15,7 +15,7 @@
 					<h3>
 						<md-icon md-svg-src="images/tag.svg" aria-label="Add Book"
 							style="margin-right: 5px;width: 30px;height: 30px;"></md-icon>
-						Add Binder
+						Add Book
 					</h3>
 					<p ng-if="fileCHoosed !== undefined"
 						style="font-size: 14px; margin-top: 5px" class="animationIf">
@@ -116,7 +116,7 @@
 				</ul>
 				<div class="pull-right">
 					<md-button class="md-raised md-primary md-hue-2"
-						ng-disabled="!showSubmitButton" style="margin: 20px 0;"
+						ng-disabled="!showSubmitButton || createVersionForm.$invalid" style="margin: 20px 0;"
 						data-dismiss="modal" aria-hidden="true" ng-click="onSubmitClick()">{{'SUBMIT'
 					| translate}}</md-button>
 					<md-button style="margin: 20px 0;"

@@ -22,6 +22,10 @@
 								$rootScope.$broadcast('onRemoveBookClick',
 										bookname);
 							}
+							$scope.$on('error', function(event, errorMsg) {
+								$scope.errorMessage = errorMsg;
+								$('#errorModal').modal('show');
+							});
 							$location.path('/login');
 							$scope.loginState = false;
 							$scope.headerPath = "app/modules/header/views/header.html";

@@ -21,10 +21,16 @@ fileItApp
 										.searchBook($scope.searchContent)
 										.then(
 												function(result) {
-													console.log(result.data);
-													BINDER_NAME.name = result.data.jsonObject[$scope.searchContent].Name;
-													$location
-															.path('/landingPage');
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														BINDER_NAME.name = result.data.jsonObject[$scope.searchContent].Name;
+														$location
+																.path('/landingPage');
+													}
 												});
 							}
 						} ]);
