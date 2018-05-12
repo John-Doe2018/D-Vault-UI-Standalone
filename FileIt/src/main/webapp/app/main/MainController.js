@@ -18,10 +18,6 @@
 								$rootScope.$broadcast('onNodeClick', node);
 							}
 
-							$scope.removeBook = function(bookname) {
-								$rootScope.$broadcast('onRemoveBookClick',
-										bookname);
-							}
 							$scope.$on('error', function(event, errorMsg) {
 								$scope.errorMessage = errorMsg;
 								$('#errorModal').modal('show');

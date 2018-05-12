@@ -17,14 +17,30 @@ fileItApp
 								scope.remove();
 							};
 
+							$scope.openSideBar = function() {
+								document.getElementById("main").style.marginLeft = "20%";
+								document.getElementById("mySidebar").style.width = "20%";
+								document.getElementById("mySidebar").style.display = "block";
+								document.getElementById("openNav").style.display = 'none';
+							}
+
+							$scope.closeSideBar = function() {
+								document.getElementById("main").style.marginLeft = "0%";
+								document.getElementById("mySidebar").style.display = "none";
+								document.getElementById("openNav").style.display = "inline-block";
+							}
+
 							$scope.$on('onNodeClick', function(event, node) {
 								console.log(node);
 								$('#pdfModal').modal('show');
 							});
 
 							$scope.deletebook = function(bookname) {
+								var deleteObj = {
+									bookName : bookname
+								}
 								LandingOperationsSvc
-										.deleteBook(bookname)
+										.deleteBook(deleteObj)
 										.then(
 												function(result) {
 													if (result.data.errorId !== undefined) {
@@ -38,10 +54,9 @@ fileItApp
 												});
 							}
 
-							$scope.$on('onRemoveBookClick', function(event,
-									bookname) {
-								$scope.deletebook(bookname);
-							});
+							$scope.removeBook = function() {
+								$scope.deletebook(BINDER_NAME.name);
+							}
 
 							$scope.toggle = function(scope) {
 								scope.toggle();
