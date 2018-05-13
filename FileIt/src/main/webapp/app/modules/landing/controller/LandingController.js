@@ -10,11 +10,70 @@ fileItApp
 						'AesEncoder',
 						'LandingOperationsSvc',
 						'BINDER_NAME',
+						'rfc4122',
+						'$route',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
-								LandingOperationsSvc, BINDER_NAME) {
+								LandingOperationsSvc, BINDER_NAME, rfc4122,
+								$route) {
 							$scope.remove = function(scope) {
 								scope.remove();
+							};
+
+							$scope.closeModal = function() {
+								$scope.fileList = [];
+							}
+
+							$scope.fileList = [];
+
+							$scope.addFlieClick = function() {
+								$('#addFileModal').modal('show');
+							}
+							$scope.ImageProperty = {
+								id : rfc4122.newuuid(),
+								name : "",
+								path : "",
+								type : "",
+								version : "1.0 ",
+								note : "NA"
+							};
+
+							$scope.setFile = function(element) {
+								// get the files
+								var files = element.files;
+								for (var i = 0; i < files.length; i++) {
+									$scope.showSubmitButton = true;
+									$scope.ImageProperty.name = files[i].name;
+									$scope.ImageProperty.path = document
+											.getElementById("file").value;
+									$scope.ImageProperty.type = files[i].type;
+
+									$scope.fileList.push($scope.ImageProperty);
+									$scope.ImageProperty = {};
+									$scope.$apply();
+
+								}
+							};
+
+							$scope.onAddFileClick = function() {
+								var addFileObj = {
+									binderName : BINDER_NAME.name,
+									oBookRequests : $scope.fileList
+								};
+								LandingOperationsSvc
+										.addfile(addFileObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														$route.reload();
+													}
+												});
+
 							};
 
 							$scope.openSideBar = function() {
@@ -22,7 +81,7 @@ fileItApp
 								document.getElementById("mySidebar").style.width = "20%";
 								document.getElementById("mySidebar").style.display = "block";
 								document.getElementById("openNav").style.display = 'none';
-							}
+							};
 
 							$scope.closeSideBar = function() {
 								document.getElementById("main").style.marginLeft = "0%";
