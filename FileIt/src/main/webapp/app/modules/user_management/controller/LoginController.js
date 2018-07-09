@@ -8,8 +8,10 @@ fileItApp
 						'$sessionStorage',
 						'Idle',
 						'AesEncoder',
+						'UserOperationsSvc',
 						function($rootScope, $scope, $location,
-								$sessionStorage, Idle, AesEncoder) {
+								$sessionStorage, Idle, AesEncoder,
+								UserOperationsSvc) {
 
 							(function($) {
 								"use strict";
@@ -105,8 +107,28 @@ fileItApp
 										});
 
 							})(jQuery);
-							
+
 							$scope.onLoginClick = function() {
-									$location.path('\home');
+								var loginObj = {
+									userName : $scope.uName,
+									password : $scope.pwd
+								};
+								UserOperationsSvc
+										.login(loginObj)
+										.then(
+												function(result) {
+													if (result.data.successMsg !== undefined) {
+														$location.path('\home');
+														$rootScope
+														.$broadcast(
+																'LoginSucess');
+													} else {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													}
+												});
+
 							}
 						} ]);

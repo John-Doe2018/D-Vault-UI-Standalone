@@ -14,24 +14,28 @@ fileItApp
 						'$compile',
 						'LoadingService',
 						'$route',
+						'FILEIT_CONFIG',
+						'BINDER_SVC',
+						'$http',
+						'IMAGE_URLS',
+						'LandingOperationsSvc',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder, BINDER_NAME,
 								HomeSvc, rfc4122, $compile, LoadingService,
-								$route) {
+								$route, FILEIT_CONFIG, BINDER_SVC, $http,
+								IMAGE_URLS, LandingOperationsSvc) {
 
+							$scope.noBookPresent = true;
 							$scope.initialize = function() {
 
 								HomeSvc
 										.shelfBook()
 										.then(
 												function(result) {
-
-													if (result.data.errorId !== undefined) {
-														$rootScope
-																.$broadcast(
-																		'error',
-																		result.data.description);
+													if (result.data.Error !== undefined) {
+														$scope.noBookPresent = false;
 													} else {
+														$scope.noBookPresent = true;
 														var ob = result.data;
 														for (var i = 0; i < ob.BookList.length; i++) {
 															$scope.h2name = Object
@@ -89,15 +93,17 @@ fileItApp
 								$('#createNew').modal('show');
 							}
 
-							function onBinderClick(value) {
-								BINDER_NAME.name = value;
-								$location.path('/landingPage');
-							}
-							;
-
 							$scope.onBinderClick = function(value) {
 								BINDER_NAME.name = value;
+								var reqObj1 = {
+									"bookName" : BINDER_NAME.name
+								}
 								$location.path('/landingPage');
+								/*LandingOperationsSvc.getImage(reqObj1).then(
+										function(result) {
+											IMAGE_URLS.url = result.data;
+											$location.path('/landingPage');
+										});*/
 							}
 
 							$scope.fileList = [];
@@ -109,6 +115,24 @@ fileItApp
 								type : "",
 								version : "1.0 ",
 								note : "NA"
+							}
+
+							$scope.convertImage = function(files) {
+								var fd = new FormData();
+								fd.append('file', files[0]);
+								fd.append('filename', files[0].name);
+								fd.append('bookName', $scope.binderName);
+								fd.append('path', $scope.binderName
+										+ "/Images/");
+								fd.append('type', files[0].type);
+								/*
+								 * LoadingService.showLoad(); $http .post(
+								 * FILEIT_CONFIG.apiUrl + BINDER_SVC.convertImg,
+								 * fd, { transformRequest : angular.identity,
+								 * headers : { 'Content-Type' : undefined }
+								 * }).then(function() {
+								 * LoadingService.hideLoad(); });
+								 */
 							}
 
 							$scope.setFile = function(element) {
@@ -127,6 +151,14 @@ fileItApp
 
 								}
 							}
+
+							$scope.deleteFile = function(index) {
+								$scope.fileList.splice(index, 1);
+								if ($scope.fileList.length < 1) {
+									$scope.showSubmitButton = false;
+								}
+							}
+
 							$scope.showSubmitButton = true;
 							$scope.steps = [ 'Binder Name', 'Classification',
 									'Upload' ];
@@ -136,6 +168,15 @@ fileItApp
 								return $scope.steps.indexOf($scope.selection);
 							};
 
+							$scope.onBookNameChange = function(bookName) {
+								if (bookName !== undefined
+										&& ($scope.uploadFIleValue === undefined || $scope.uploadFIleValue === false)) {
+									$scope.showSubmitButton = true;
+								} else {
+									$scope.showSubmitButton = false;
+								}
+							}
+
 							$scope.onCancelClick = function() {
 								$scope.fileCHoosed = undefined;
 								$scope.fileCHoosedName = undefined;
@@ -143,6 +184,14 @@ fileItApp
 								$scope.executionName = '';
 								$scope.files = [];
 								$scope.errorMessage = '';
+								$scope.binderName = '';
+								$scope.classification = '';
+								$scope.fileList = [];
+								$scope.uploadFIleValue = false;
+								$scope.showSubmitButton = false;
+								$scope.createVersionForm.$setValidity();
+								$scope.createVersionForm.$setPristine();
+								$scope.createVersionForm.$setUntouched();
 							};
 
 							$scope.goToStep = function(index) {
@@ -163,9 +212,20 @@ fileItApp
 								return (($scope.steps[previousStep]) !== undefined);
 							};
 
+							$scope.enableNext = function() {
+								if ($scope.binderName == undefined
+										|| ($scope.classification == undefined && $scope
+												.getCurrentStepIndex() == 2)
+										|| !$scope.uploadFIleValue) {
+									return false;
+								} else {
+									return true;
+								}
+
+							}
+
 							$scope.incrementStep = function() {
-								if ($scope.hasNextStep()
-										&& $scope.createVersionForm.$valid) {
+								if ($scope.hasNextStep()) {
 									var stepIndex = $scope
 											.getCurrentStepIndex();
 									var nextStep = stepIndex + 1;
@@ -185,6 +245,9 @@ fileItApp
 							$scope.fileCHoosed = undefined;
 
 							$scope.onSubmitClick = function() {
+								$scope.createVersionForm.$setValidity();
+								$scope.createVersionForm.$setPristine();
+								$scope.createVersionForm.$setUntouched();
 								if ($scope.selection === "Binder Name") {
 									$scope.onAddBinder();
 								} else {
@@ -231,18 +294,6 @@ fileItApp
 							};
 
 							$scope.dropText = 'Drag file here ...'
-
-							$scope.setFiles = function(element) {
-								$scope
-										.$apply(function($scope) {
-											$scope.files = []
-											for (var i = 0; i < element.files.length; i++) {
-												$scope.files
-														.push(element.files[i])
-											}
-											$scope.progressVisible = false
-										});
-							};
 
 							$scope.decrementStep = function() {
 								if ($scope.hasPreviousStep()) {

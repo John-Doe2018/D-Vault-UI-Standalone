@@ -35,23 +35,11 @@
 
 			<div class="w3-container">
 				<div class="book_wrapper">
-					<a id="next_page_button"></a> <a id="prev_page_button"></a>
+					<a id="next_page_button" ng-click="nextButtonClick();"></a> <a
+						id="prev_page_button"></a>
 					<div id="loading" class="loading">Loading pages...</div>
 					<div id="mybook" style="display: none;">
-						<div class="b-load">
-							<div>
-								<img src="http://localhost:8080/static/Adi/Images/1.jpg" alt=""
-									style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" />
-							</div>
-							<div>
-								<img src="http://localhost:8080/static/Adi/Images/2.jpg" alt=""
-									style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" />
-							</div>
-							<div>
-								<img src="http://localhost:8080/static/Adi/Images/3.jpg" alt=""
-									style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" />
-							</div>
-						</div>
+						<div class="b-load"></div>
 					</div>
 				</div>
 				<br />
@@ -86,56 +74,6 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<div id="addFileModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Add Files</h4>
-				</div>
-				<div class="modal-body">
-					<div class="col-md-12"
-						style="text-align: center; margin-bottom: 10px;">
-						<input type="file" id="file" name="file" multiple
-							onchange="angular.element(this).scope().setFile(this)"
-							class="btn btn-warning" />
-					</div>
-
-					<div class="col-md-12" style="padding-top: 10px;">
-
-						<div class="col-md-7">
-							<table class="table table-bordered table-striped">
-								<thead>
-									<tr>
-										<th>File Name</th>
-										<th>File Type</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="file in fileList">
-
-										<td>{{file.name}}</td>
-										<td>{{file.type}}</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<md-button class="md-raised md-primary md-hue-2"
-						style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
-						ng-click="onAddFileClick()">{{'SUBMIT' | translate}}</md-button>
-					<md-button style="margin: 20px 0;"
-						class="md-warn md-raised md-hue-2" data-dismiss="modal"
-						aria-hidden="true" ng-click="closeModal()">{{'CANCEL'
-					| translate}}</md-button>
 				</div>
 			</div>
 

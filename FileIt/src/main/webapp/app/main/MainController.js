@@ -11,21 +11,41 @@
 						'LoadingService',
 						function($rootScope, $scope, $location, $window,
 								$translate, $interval, LoadingService) {
+							console.log = function() {
+							};
 							LoadingService.showLoad();
 							var locale;
-							$translate.use("en_US");
+							$translate.use("en");
 							$scope.onnodeclick = function(node) {
 								$rootScope.$broadcast('onNodeClick', node);
 							}
 
+							$scope.removeBook = function(bookname) {
+								$rootScope.$broadcast('onRemoveBookClick',
+										bookname);
+							}
 							$scope.$on('error', function(event, errorMsg) {
 								$scope.errorMessage = errorMsg;
 								$('#errorModal').modal('show');
 							});
+							$rootScope.$on('showConfirmModal', function() {
+
+								$('#confirmationModal').modal('show');
+							});
+
+							$scope.yesClicked = function() {
+								$scope.$broadcast('confirmAgreed');
+							}
 							$location.path('/login');
 							$scope.loginState = false;
-							$scope.headerPath = "app/modules/header/views/header.html";
-							$scope.footerPath = "app/modules/header/views/footer.html";
+							$scope.$on('LoginSucess', function(){
+								$scope.headerPath = "app/modules/header/views/header.html";
+								$scope.footerPath = "app/modules/header/views/footer.html";
+							});
+							$scope.$on('LogoutSucess', function(){
+								$scope.headerPath = null;
+								$scope.footerPath = null;
+							});
 							// below field controls the currency position
 							$scope.leftPlacing = true;
 

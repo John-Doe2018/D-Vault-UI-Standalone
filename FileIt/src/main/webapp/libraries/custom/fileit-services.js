@@ -264,3 +264,7 @@ fileItApp.factory('FORMATTED_DATE', function() {
 fileItApp.value('BINDER_NAME', {
 	name : ''
 });
+
+fileItApp.value('IMAGE_URLS', {
+	url : ''
+});
