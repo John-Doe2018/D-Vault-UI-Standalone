@@ -6,7 +6,7 @@ fileItApp.constant('BINDER_SVC', {
 	deleteBook : '/binder/delete',
 	search : '/binder/searchBook',
 	convertImg : '/binder/imageConvert',
-	getImage : '/binder/getImage',
+	getImage : '/binder/fetchImageDetails',
 	login : '/auth/login',
 	advancedSearch : '/binder/advancedSearch',
 	deleteFile : '/binder/deleteFile'

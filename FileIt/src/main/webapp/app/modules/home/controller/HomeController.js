@@ -95,15 +95,24 @@ fileItApp
 
 							$scope.onBinderClick = function(value) {
 								BINDER_NAME.name = value;
-								var reqObj1 = {
+								/*var reqObj1 = {
 									"bookName" : BINDER_NAME.name
-								}
+								}*/
 								$location.path('/landingPage');
-								/*LandingOperationsSvc.getImage(reqObj1).then(
+								LandingOperationsSvc.getImage(BINDER_NAME.name).then(
 										function(result) {
-											IMAGE_URLS.url = result.data;
+											IMAGE_URLS.url = [];
+											var path = result.data.ImagePath;
+											for(key in result.data){
+												if(key != "ImagePath"){
+													for(var i = result.data[key].Start+1; i <= result.data[key].End; i++){
+														IMAGE_URLS.url.push(FILEIT_CONFIG.staticUrl + path + '/' + i + '.jpg');
+													}
+												}
+											}
 											$location.path('/landingPage');
-										});*/
+											/*IMAGE_URLS.url = result.data;*/
+										});
 							}
 
 							$scope.fileList = [];

@@ -63,7 +63,7 @@ fileItApp
 												});
 							};
 
-							/*$scope.getImage = function() {
+							$scope.getImage = function() {
 								for (var n = 0; n < IMAGE_URLS.url.length; n++) {
 									var text1 = '<div><img src="'
 											+ IMAGE_URLS.url[n]
@@ -71,9 +71,9 @@ fileItApp
 									$(text1).appendTo(".b-load");
 								}
 								$scope.getData();
-							};*/
-							/*$scope.getImage();*/
-							$scope.getData();
+							};
+							$scope.getImage();
+							/*$scope.getData();*/
 							var bookScope;
 
 							$scope.removeFile = function(scope, fileName) {
