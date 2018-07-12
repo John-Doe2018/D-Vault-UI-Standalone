@@ -102,17 +102,25 @@ fileItApp
 								LandingOperationsSvc.getImage(BINDER_NAME.name).then(
 										function(result) {
 											IMAGE_URLS.url = [];
+											var keyParsed = 0;
 											var path = result.data.ImagePath;
-											for(key in result.data){
-												if(key != "ImagePath"){
-													for(var i = result.data[key].Start+1; i <= result.data[key].End; i++){
-														IMAGE_URLS.url.push(FILEIT_CONFIG.staticUrl + path + '/' + i + '.jpg');
+											new Promise(function(resolve, reject){
+												for(key in result.data){
+													keyParsed++;
+													if(key != "ImagePath"){
+														for(var i = result.data[key].Start+1; i <= result.data[key].End; i++){
+															IMAGE_URLS.url.push(FILEIT_CONFIG.staticUrl + path + '/' + i + '.jpg');
+														}
 													}
 												}
-											}
-											$location.path('/landingPage');
-											/*IMAGE_URLS.url = result.data;*/
-										});
+												if(Object.keys(result.data).length == keyParsed){
+													resolve(IMAGE_URLS.url);
+												}
+											}).then(function(){
+												$location.path('/landingPage');
+											});
+											
+										})
 							}
 
 							$scope.fileList = [];
