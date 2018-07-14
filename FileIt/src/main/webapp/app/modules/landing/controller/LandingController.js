@@ -13,10 +13,11 @@ fileItApp
 						'rfc4122',
 						'$route',
 						'IMAGE_URLS',
+						'FILEIT_CONFIG',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								LandingOperationsSvc, BINDER_NAME, rfc4122,
-								$route, IMAGE_URLS) {
+								$route, IMAGE_URLS,FILEIT_CONFIG) {
 
 							$scope.getData = function() {
 								LandingOperationsSvc
@@ -74,6 +75,43 @@ fileItApp
 							};
 							$scope.getImage();
 							/*$scope.getData();*/
+							
+							$scope.onFileDownload = function() {
+								var reqObj = {
+									"bookName" : BINDER_NAME.name
+								}
+								LandingOperationsSvc
+										.downloadFile(reqObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														console
+																.log(result.data.URL);
+														var a = document
+																.createElement("a");
+														//FILEIT_CONFIG.staticUrl + result.data.URL
+														a.href = FILEIT_CONFIG.staticUrl + result.data.URL.replace(/\\/g,'/');
+														fileName = FILEIT_CONFIG.staticUrl + result.data.URL.replace(/\\/g,'/')
+																.split("/")
+																.pop();
+														a.download = fileName;
+														
+														document.body
+																.appendChild(a);
+														a.click();
+														window.URL
+																.revokeObjectURL(result.data.URL);
+														a.remove();
+													}
+												});
+
+							}
+							
 							var bookScope;
 
 							$scope.removeFile = function(scope, fileName) {

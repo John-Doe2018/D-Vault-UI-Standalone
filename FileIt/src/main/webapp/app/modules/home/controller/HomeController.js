@@ -98,7 +98,8 @@ fileItApp
 								/*var reqObj1 = {
 									"bookName" : BINDER_NAME.name
 								}*/
-								$location.path('/landingPage');
+								/*$location.path('/landingPage');*/
+								LoadingService.showLoad();
 								LandingOperationsSvc.getImage(BINDER_NAME.name).then(
 										function(result) {
 											IMAGE_URLS.url = [];
@@ -117,6 +118,7 @@ fileItApp
 													resolve(IMAGE_URLS.url);
 												}
 											}).then(function(){
+												LoadingService.hideLoad();
 												$location.path('/landingPage');
 											});
 											
