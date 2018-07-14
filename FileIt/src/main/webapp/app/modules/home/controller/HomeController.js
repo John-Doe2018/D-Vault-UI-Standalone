@@ -118,13 +118,17 @@ fileItApp
 													resolve(IMAGE_URLS.url);
 												}
 											}).then(function(){
-												LoadingService.hideLoad();
-												$location.path('/landingPage');
+												$scope.$broadcast('navigateToLandingPage')
 											});
 											
 										})
 							}
-
+							
+							$scope.$on('navigateToLandingPage', function(){
+								LoadingService.hideLoad();
+								$location.path('/landingPage');
+							});
+							
 							$scope.fileList = [];
 							$scope.curFile;
 							$scope.ImageProperty = {
