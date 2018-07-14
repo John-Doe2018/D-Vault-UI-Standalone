@@ -20,8 +20,15 @@
 			style="background-color: #54290C;" ng-click="onSearch()">
 		<md-icon md-svg-src="images/search.svg" aria-label="Search"></md-icon>
 		</md-button> -->
-		<md-button class="md-fab md-mini" aria-label="Profile"
-			style="background-color: #54290C;" ng-click="logout()"> <md-icon
-			md-svg-src="images/logout.svg" aria-label="User"></md-icon> </md-button>
+		<div class="dropdown">
+		<md-button class="md-fab md-mini dropdown-toggle user-bottom" data-toggle="dropdown" aria-label="Profile"> <md-icon
+			md-svg-src="images/user.svg" aria-label="User"></md-icon></md-button>
+		<ul class="dropdown-menu">
+            <li><a>Profile</a></li>
+            <li><a>Setting</a></li>
+            <li class="divider"></li>
+            <li><a ng-click="logout()" style="color: red;">Logout</a></li>
+        </ul>
+		</div>
 	</div>
 </div>
