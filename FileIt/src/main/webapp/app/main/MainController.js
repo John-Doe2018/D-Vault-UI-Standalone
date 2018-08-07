@@ -11,7 +11,16 @@
 						'LoadingService',
 						function($rootScope, $scope, $location, $window,
 								$translate, $interval, LoadingService) {
+
 							console.log = function() {
+							};
+							$scope.w3_close = function() {
+								document.getElementById("mainPage").style.marginLeft = "0%";
+								document.getElementById("mySidebar").style.display = "none";
+							};
+							$scope.goTOCreateBook = function() {
+								$scope.w3_close();
+								$location.path('/createBook');
 							};
 							LoadingService.showLoad();
 							var locale;
@@ -38,14 +47,8 @@
 							}
 							$location.path('/login');
 							$scope.loginState = false;
-							$scope.$on('LoginSucess', function(){
-								$scope.headerPath = "app/modules/header/views/header.html";
-								$scope.footerPath = "app/modules/header/views/footer.html";
-							});
-							$scope.$on('LogoutSucess', function(){
-								$scope.headerPath = null;
-								$scope.footerPath = null;
-							});
+							$scope.headerPath = "app/modules/header/views/header.html";
+							$scope.footerPath = "app/modules/header/views/footer.html";
 							// below field controls the currency position
 							$scope.leftPlacing = true;
 
@@ -68,22 +71,7 @@
 							$scope.$on('$routeChangeSuccess', function(next,
 									current) {
 								// $translate.use(OMNI_PROP.locale);
-								$scope.fitScreen();
-							});
-
-							$scope.$on('ErrorData', function(event, args) {
-								$scope.errorData = args.errStatus;
-								$('#bizErrorModal').modal('show');
-							});
-
-							$scope.$on('SuccessModal', function(event, args) {
-								$scope.sucessMessage = args.sucessMsg;
-								$('#successMsgModal').modal('show');
-							});
-							$scope.$on('WarningModal', function(event, args) {
-
-								$scope.warningMessage = args.sucessMsg;
-								$('#warningMsgModal').modal('show');
+								// $scope.fitScreen();
 							});
 
 							/**
@@ -92,7 +80,7 @@
 							 */
 							var windowObj = angular.element($window);
 							windowObj.bind('resize', function() {
-								$scope.fitScreen();
+								// $scope.fitScreen();
 							});
 
 							/**
@@ -104,17 +92,15 @@
 								var fitScreenDelay = $interval(function() {
 									$interval.cancel(fitScreenDelay);
 									var windowHeight = $(window).height();
-									var headerHeight = $('.header').height();
-									/*
-									 * var footerHeight = $('.loginFooter')
-									 * .height();
-									 */
-									/*
-									 * var appPageContainer = windowHeight -
-									 * headerHeight - footerHeight;
-									 */
+									var headerHeight = $('#pageHeader')
+											.height();
+
+									var footerHeight = $('#pageFooter')
+											.height();
+
 									var appPageContainer = windowHeight
-											- headerHeight;
+											- headerHeight - footerHeight;
+
 									$('.app-page-container').height(
 											appPageContainer + 'px');
 								}, 50);
@@ -122,9 +108,9 @@
 							};
 
 							// call fit screen when App loads for the first time
-							$scope.fitScreen();
+							// $scope.fitScreen();
 							$scope.$on('FitScreen', function() {
-								$scope.fitScreen();
+								// $scope.fitScreen();
 							});
 
 							/**
@@ -139,6 +125,11 @@
 
 							$scope.$on('loginSuccess', function() {
 								$scope.loginState = true;
+							});
+
+							$scope.$on('LogoutSucess', function() {
+								$scope.headerPath = null;
+								$scope.footerPath = null;
 							});
 
 							$scope.$on('fullWidth', function() {

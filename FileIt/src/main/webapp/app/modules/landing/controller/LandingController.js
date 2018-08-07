@@ -13,12 +13,16 @@ fileItApp
 						'rfc4122',
 						'$route',
 						'IMAGE_URLS',
+						'LoadingService',
+						'$http',
 						'FILEIT_CONFIG',
+						'BINDER_SVC',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								LandingOperationsSvc, BINDER_NAME, rfc4122,
-								$route, IMAGE_URLS,FILEIT_CONFIG) {
-
+								$route, IMAGE_URLS, LoadingService, $http,
+								FILEIT_CONFIG, BINDER_SVC) {
+							$scope.validFile = true;
 							$scope.getData = function() {
 								LandingOperationsSvc
 										.treeList(BINDER_NAME.name)
@@ -74,8 +78,7 @@ fileItApp
 								$scope.getData();
 							};
 							$scope.getImage();
-							/*$scope.getData();*/
-							
+
 							$scope.onFileDownload = function() {
 								var reqObj = {
 									"bookName" : BINDER_NAME.name
@@ -100,7 +103,6 @@ fileItApp
 																.split("/")
 																.pop();
 														a.download = fileName;
-														
 														document.body
 																.appendChild(a);
 														a.click();
@@ -111,7 +113,7 @@ fileItApp
 												});
 
 							}
-							
+
 							var bookScope;
 
 							$scope.removeFile = function(scope, fileName) {
@@ -184,7 +186,7 @@ fileItApp
 
 							$scope.onAddFileClick = function() {
 								var addFileObj = {
-									binderName : BINDER_NAME.name,
+									bookName : BINDER_NAME.name,
 									oBookRequests : $scope.fileList
 								};
 								LandingOperationsSvc
@@ -197,22 +199,27 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
-														$route.reload();
+														$location.path('\home');
 													}
 												});
 
 							};
 
+							$scope.onAddfileCancel = function() {
+								$('#addFileModal').modal('hide');
+								$scope.fileList = undefined;
+							}
+
 							$scope.openSideBar = function() {
 								document.getElementById("main").style.marginLeft = "20%";
-								document.getElementById("mySidebar").style.width = "20%";
-								document.getElementById("mySidebar").style.display = "block";
+								document.getElementById("mySidebar1").style.width = "20%";
+								document.getElementById("mySidebar1").style.display = "block";
 								document.getElementById("openNav").style.display = 'none';
 							};
 
 							$scope.closeSideBar = function() {
 								document.getElementById("main").style.marginLeft = "0%";
-								document.getElementById("mySidebar").style.display = "none";
+								document.getElementById("mySidebar1").style.display = "none";
 								document.getElementById("openNav").style.display = "inline-block";
 							}
 

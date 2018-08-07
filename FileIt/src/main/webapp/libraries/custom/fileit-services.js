@@ -9,6 +9,29 @@ fileItApp.service('LoadingService', function($rootScope) {
 	};
 });
 
+fileItApp.service('LoginLoadingService', function($rootScope) {
+	this.showLoad = function() {
+		$('#loginloadingScreen').addClass('display-flex');
+		$('#loginloadingScreen').removeClass('display-none');
+	};
+	this.hideLoad = function() {
+		$('#loginloadingScreen').removeClass('display-flex');
+		$('#loginloadingScreen').addClass('display-none');
+	};
+});
+
+fileItApp.directive('testTable', function($timeout, $rootScope) {
+	return {
+		restrict : 'A',
+		link : function() {
+			$timeout(function() {
+				$('#example').DataTable();
+				$rootScope.$broadcast('FitSideMenu');
+			});
+		}
+	}
+});
+
 fileItApp.factory("rfc4122", function() {
 	return {
 		newuuid : function() {
@@ -19,11 +42,11 @@ fileItApp.factory("rfc4122", function() {
 				s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
 			}
 			s[14] = "4"; // bits 12-15 of the time_hi_and_version field to
-							// 0010
+			// 0010
 			s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of
-																// the
-																// clock_seq_hi_and_reserved
-																// to 01
+			// the
+			// clock_seq_hi_and_reserved
+			// to 01
 			s[8] = s[13] = s[18] = s[23] = "-";
 			return s.join("");
 		}
@@ -54,7 +77,9 @@ fileItApp.factory('RestSvc', [
 				},
 
 				postData : function(relURL, data) {
-					LoadingService.showLoad();
+					if (!relURL.includes("login")) {
+						LoadingService.showLoad();
+					}
 					var appPostUrl = FILEIT_CONFIG.apiUrl + relURL;
 					return $http.post(appPostUrl, data).then(
 							function(response) {
@@ -64,7 +89,9 @@ fileItApp.factory('RestSvc', [
 								console.log('Error : ' + error.status);
 								return $q.reject(error.data);
 							})['finally'](function() {
-						LoadingService.hideLoad();
+						if (!relURL.includes("login")) {
+							LoadingService.hideLoad();
+						}
 					});
 				},
 
@@ -267,4 +294,18 @@ fileItApp.value('BINDER_NAME', {
 
 fileItApp.value('IMAGE_URLS', {
 	url : ''
+});
+
+fileItApp.value('LOGGED_USER', {
+	name : ''
+});
+
+fileItApp.value('DASHBOARD_DETALS', {
+	colors : '',
+	data : '',
+	lable : '',
+	records : '',
+	doccount : '',
+	classcount : '',
+	booklist : ''
 });

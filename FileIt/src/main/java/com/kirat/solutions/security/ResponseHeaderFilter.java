@@ -18,7 +18,7 @@ public class ResponseHeaderFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		 String client = WebConfigReader.getInstance().getString("client.address");
 		  HttpServletResponse response = (HttpServletResponse) res;
-		  response.addHeader("Access-Control-Allow-Origin", client);
+		  response.addHeader("Access-Control-Allow-Origin", client);//client
 	      response.addHeader("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
 	      response.addHeader("Access-Control-Allow-Credentials", "true");
 	      response.addHeader("Access-Control-Allow-Methods", "POST");

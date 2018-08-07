@@ -11,14 +11,35 @@ fileItApp
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
 								BINDER_NAME) {
-							$scope.adavnceSearch = function() {
+								
+							$scope.w3_open = function() {
+								  document.getElementById("mainPage").style.marginLeft = "18%";
+								  document.getElementById("mySidebar").style.width = "18%";
+								  document.getElementById("mySidebar").style.display = "block";
+								}
+							$scope.w3_close = function() {
+								document.getElementById("mainPage").style.marginLeft = "0%";
+								document.getElementById("mySidebar").style.display = "none";
+							};
+							$scope.w3_toggle = function() {
+								if(document.getElementById("mySidebar").style.display == "none"){
+									$scope.w3_open();
+								}else{
+									$scope.w3_close();
+								}
+							};
+								
+							function adavnceSearch() {
 								LandingOperationsSvc.advSearch().then(
 										function(result) {
 											$scope.people = result.data;
 										});
-							};
-							$scope.adavnceSearch();
-
+							}
+							;
+							adavnceSearch();
+							$scope.$on('advSaerch', function() {
+								adavnceSearch();
+							});
 							$scope.localSearch = function(str, people) {
 								var matches = [];
 								$scope.people
@@ -34,7 +55,26 @@ fileItApp
 										});
 								return matches;
 							};
+
+							$scope.logout = function() {
+								$rootScope.$broadcast('LogoutSucess');
+								$location.path('/login');
+							};
+							
+							$scope.gotoProfile = function() {
+								$location.path('/profile');
+							}
 							$scope.backtoHome = function() {
+								$location.path('/dashboard');
+							};
+							
+							$scope.goTOHome = function() {
+								if (document.getElementById("profilenav").style.width === "250px") {
+									document.getElementById("profilenav").style.width = "0";
+								}
+								if (document.getElementById("mySidenav").style.width === "250px") {
+									document.getElementById("mySidenav").style.width = "0";
+								}
 								$location.path('/home');
 							}
 
@@ -64,15 +104,7 @@ fileItApp
 									console.log('cleared');
 								}
 							};
-							
-							$scope.logout = function(){
-								$rootScope
-								.$broadcast(
-										'LogoutSucess');
-								$location
-									.path('/login');
-							}
-							
+
 							$scope.onSearch = function(selectedBook) {
 							}
 						} ]);
